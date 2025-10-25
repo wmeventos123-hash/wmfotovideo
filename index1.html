@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WM Foto e Vídeo - Capturando Momentos Especiais</title>
+    <style>
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Cores corrigidas para melhor contraste */
+        :root {
+            --primary-color: #8a6d62;
+            --secondary-color: #b9b0d4;
+            --accent-color: #d4af37;
+            --dark-color: #222222;
+            --light-color: #ffffff;
+            --text-color: #333333;
+            --text-light: #666666;
+        }
+        
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Botão */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            color: white;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://source.unsplash.com/random/1920x1080/?wedding') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Sobre */
+        .about {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+            color: var(--text-color);
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        /* Serviços */
+        .services {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+        
+        .service-content {
+            padding: 20px;
+            text-align: center;
+            color: var(--text-color);
+        }
+        
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .service-content p {
+            color: var(--text-light);
+        }
+        
+        /* Portfólio */
+        .portfolio {
+            padding: 100px 0;
+            background-color: #f5f5f5;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 50px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(138, 109, 98, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+        
+        /* Depoimentos */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--light-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            color: var(--text-color);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            color: var(--secondary-color);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+        
+        .author-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        /* Contato */
+        .contact {
+            padding: 100px 0;
+            background-color: #f5f5f5;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color: var(--text-color);
+        }
+        
+        .contact-details i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            font-size: 16px;
+            color: var(--text-color);
+            background-color: white;
+        }
+        
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .footer-nav {
+            margin-bottom: 30px;
+        }
+        
+        .footer-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .footer-nav a {
+            transition: color 0.3s ease;
+            color: white;
+        }
+        
+        .footer-nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .about-container {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .footer-nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">WM <span>Foto e Vídeo</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#portfolio">Portfólio</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>Capturando momentos inesquecíveis</h1>
+            <p>Especializados em fotografia e vídeo para casamentos e festas de 15 anos, transformamos momentos especiais em memórias eternas.</p>
+            <a href="#contact" class="btn">Solicitar Orçamento</a>
+        </div>
+    </section>
+
+   
+    <!-- Serviços -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="imagens/esterno ana e diegp.jpg" alt="Casamentos">
+                    </div>
+                    <div class="service-content">
+                        <h3>Fotografia de Casamento</h3>
+                        <p>Registramos cada momento do seu dia, dos preparativos à festa, capturando emoções, sorrisos e detalhes que tornam sua história única.</p>
+                        <a href="casamento1.html" class="btn" style="margin-top: 15px;">Ver Detalhes</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="imagens/lana6.jpg" alt="Festas de 15 anos">
+                    </div>
+                    <div class="service-content">
+                        <h3>Festas de 15 Anos</h3>
+                        <p>Capturamos cada momento dessa fase única da sua vida, do ensaio externo à cerimônia e festa, transformando cada instante em lembranças inesquecíveis.</p>
+                        <a href="15anos.html" class="btn" style="margin-top: 15px;">Ver Detalhes</a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="imagens/barbarara.png" alt="FILME">
+                    </div>
+                    <div class="service-content">
+                        <h3>Filme</h3>
+                        <p>Registramos cada momento do seu dia, dos preparativos à festa, com storytelling, criando memórias autênticas e inesquecíveis.</p>
+                        <a href="https://youtu.be/fQkBBXqnzBQ" class="btn" style="margin-top: 15px;">Ver Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfólio -->
+    <section class="portfolio" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Nosso Portfólio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="imagens/Claudia e rayssa_DSC4437.jpg" alt="Casamento">
+                    <div class="portfolio-overlay">
+                        <h3>Casamento Ana e Carlos</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="imagens/EVS_3008.jpg" alt="Casamento">
+                    <div class="portfolio-overlay">
+                        <h3>Casamento Rayssa e Claúdio</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="imagens/claudia e rayssa.jpg" alt="Préwedding">
+                    <div class="portfolio-overlay">
+                        <h3>pré-wedding</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="imagens/estela 3.jpg" alt="ensaio de 15 anos">
+                    <div class="portfolio-overlay">
+                        <h3>ensaio 15 anos</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="imagens/ev5.jpg" alt="ensaio de 15 anos">
+                    <div class="portfolio-overlay">
+                        <h3>Ensaio de 15 anos</h3>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <img src="imagens/lana83.jpg" alt="Festa de 15 anos">
+                    <div class="portfolio-overlay">
+                        <h3>Festa de 15 anos</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">O que Nossos Clientes Dizem</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">A WM fez um trabalho incrível no meu casamento. As fotos capturaram perfeitamente cada emoção do dia. Super recomendo!</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="imagens/casamento anae diego.jpg" alt="Juliana Santos">
+                        </div>
+                        <div class="author-info">
+                            <h4>Juliana Santos</h4>
+                            <p>Noiva</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Minha festa de 15 anos foi ainda mais especial com o trabalho da WM. O álbum ficou maravilhoso e revivo cada momento através das fotos.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="imagens/Claudia e rayssa_DSC4437.jpg" alt="Carolina Oliveira">
+                        </div>
+                        <div class="author-info">
+                            <h4>Carolina Oliveira</h4>
+                            <p>Aniversariante</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Profissionalismo e talento definem a WM. As filmagens do nosso casamento foram transformadas em um verdadeiro filme, com emocionante.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="imagens/IMG_7196.JPG" alt="Ricardo Mendes">
+                        </div>
+                        <div class="author-info">
+                            <h4>Ricardo Mendes</h4>
+                            <p>Noivo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Sobre -->
+    <section class="about" id="about">
+        <div class="container about-container">
+            <div class="about-text">
+                <h2 class="section-title">Sobre Nós</h2>
+                <p>Somos Wallace e Marcilene, um casal apaixonado por registrar histórias de amor e momentos que marcam a vida. Desde o início, nossa missão sempre foi transformar cada celebração em memórias eternas, capturando não apenas imagens, mas emoções genuínas que tocam o coração.</p>
+                <p>Com mais de 10 anos de experiência, a WM Foto e Vídeo se tornou referência em fotografia e filmagem de casamentos e festas de 15 anos, sempre buscando contar cada história de forma única e especial.</p>
+                <p>Nosso trabalho vai além de registrar momentos: acompanhamos cada detalhe, desde os preparativos até os instantes mais emocionantes, garantindo que cada experiência seja inesquecível.</p>
+                <p>Acreditamos que cada sorriso, cada abraço e cada lágrima de alegria merece ser eternizado, porque são esses momentos que fazem a vida ser tão única.</p>
+                <a href="#services" class="btn" style="margin-top: 20px;">Nossos Serviços</a>
+            </div>
+            <div class="about-image">
+                <img src="imagens/unnamed.jpg" alt="Fotógrafo da WM Foto e Vídeo">
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contato -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Fale Conosco</h3>
+                    <div class="contact-details">
+                        <p><i class="fas fa-map-marker-alt"></i> Av. Alcindo Cacela, 2582 - Altos </p>
+                        <p><i class="fas fa-phone"></i> (91) 98933-4745</p>
+                        <p><i class="fas fa-envelope"></i> wmeventos123@gmail.com</p>
+                    </div>
+                    <h3>Siga-nos</h3>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/wm.fotovideo/"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/wmfotovideo"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://wa.me/5591989334745"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.youtube.com/@wmfotovideo"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Seu nome" required>
+                        <input type="email" placeholder="Seu e-mail" required>
+                        <input type="tel" placeholder="Seu telefone">
+                        <select required>
+                            <option value="" disabled selected>Tipo de evento</option>
+                            <option value="casamento">Casamento</option>
+                            <option value="15anos">Festa de 15 anos</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        <textarea placeholder="Sua mensagem" required></textarea>
+                        <button type="submit" class="btn">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">WM <span>Foto e Vídeo</span></div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#services">Serviços</a></li>
+                        <li><a href="#portfolio">Portfólio</a></li>
+                        <li><a href="#contact">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 WM Foto e Vídeo - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</htm

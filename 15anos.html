@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WM Foto e Vídeo - Festas de 15 Anos</title>
+    <style>
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Cores */
+        :root {
+            --primary-color: #b9b0d4;
+            --secondary-color: #8a6d62;
+            --accent-color: #ffb700;
+            --dark-color: #333;
+            --light-color: #f5f5f5;
+            --white: #ffffff;
+        }
+        
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Botão */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-whatsapp {
+            background-color: #25D366;
+        }
+        
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            color: var(--white);
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1920x1080/?15th-birthday') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 80px;
+            margin-bottom: 60px;
+        }
+        
+        .page-hero-content {
+            max-width: 800px;
+        }
+        
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .page-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Sobre o serviço */
+        .service-about {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .service-about-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .service-about-text {
+            flex: 1;
+        }
+        
+        .service-about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .service-about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        /* Galeria de Ensaios */
+        .gallery {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+        
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background: var(--white);
+            border: 1px solid var(--primary-color);
+            color: var(--dark-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(138, 109, 98, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .gallery-overlay p {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(238, 228, 228, 0.9);
+            z-index: 1100;
+            overflow: auto;
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 1000px;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: modalFade 0.5s;
+        }
+        
+        @keyframes modalFade {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-close {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: var(--accent-color);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .modal-gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+        
+        .modal-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .modal-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .modal-description {
+            margin-bottom: 20px;
+        }
+        
+        .modal-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .modal-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-features li:before {
+            content: "✓";
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        /* Pacotes */
+        .packages {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .package-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(240, 232, 232, 0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .package-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .package-body {
+            padding: 30px;
+        }
+        
+        .package-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .package-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .package-features li:before {
+            content: "✓";
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .package-price {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 20px 0;
+        }
+        
+        /* CTA WhatsApp */
+        .whatsapp-cta {
+            padding: 80px 0;
+            background-color: var(--light-color);
+            text-align: center;
+        }
+        
+        .whatsapp-cta h2 {
+            margin-bottom: 20px;
+        }
+        
+        .whatsapp-cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .footer-nav {
+            margin-bottom: 30px;
+        }
+        
+        .footer-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .footer-nav a {
+            transition: color 0.3s ease;
+        }
+        
+        .footer-nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .service-about-container {
+                flex-direction: column;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .footer-nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">WM <span>Foto e Vídeo</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index1.html">Início</a></li>
+                    <li><a href="index.html#about">Sobre</a></li>
+                    <li><a href="index.html#services">Serviços</a></li>
+                    <li><a href="index.html#portfolio">Portfólio</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container page-hero-content">
+            <h1>Festas de 15 Anos</h1>
+            <p>Transformamos esse momento único em memórias eternas, do ensaio fotográfico à festa de debutante</p>
+            <a href="#contact" class="btn">Solicitar Orçamento</a>
+        </div>
+    </section>
+
+    <!-- Sobre o Serviço -->
+    <section class="service-about">
+        <div class="container service-about-container">
+            <div class="service-about-text">
+                <h2 class="section-title">Ensaio de 15 Anos</h2>
+                <p>O ensaio de 15 anos é um momento especial que marca a transição da adolescência para a vida adulta. Nossa equipe se dedica a capturar toda a beleza, personalidade e emoção dessa fase única.</p>
+                <p>Com um olhar sensível e criativo, criamos imagens que contam a história da debutante, destacando sua personalidade, estilo e sonhos. Trabalhamos com diferentes locações, iluminação natural e artificial, e uma variedade de conceitos para garantir um ensaio diversificado e personalizado.</p>
+                <p>Oferecemos desde ensaios tradicionais até produções mais ousadas e contemporâneas, sempre respeitando a essência e o conforto da aniversariante.</p>
+                <a href="#gallery" class="btn" style="margin-top: 20px;">Ver Galeria</a>
+            </div>
+            <div class="service-about-image">
+                <img src="imagens/ev3.jpg" alt="Ensaio de 15 anos">
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria de Ensaios -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Galeria de Ensaios</h2>
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="Ensaio Paris in America">Ensaio Paris in America</button>
+                <button class="filter-btn" data-filter="Ensaio no Mangal das Garças">Ensaio no Mangal das Garças</button>
+                <button class="filter-btn" data-filter="Cobertura da festa">Cobertura da festa</button>
+                <button class="filter-btn" data-filter="Ensaio Forte do Castelo">Ensaio Forte do Castelo</button>
+            </div>
+            <div class="gallery-grid">
+                <!-- Item 1 -->
+                <div class="gallery-item" data-category="Ensaio Paris in America">
+                    <img src="imagens/paris2.jpg" alt="Ensaio Paris in America">
+                    <div class="gallery-overlay">
+                        <h3>Ensaio Paris in America</h3>
+                        <p>Ensaio Paris in America </p>
+                        <button class="btn view-details" data-id="1">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="gallery-item" data-category="Ensaio no Mangal das Garças">
+                    <img src="imagens/ev5.jpg" alt="Ensaio no Mangal das Garças">
+                    <div class="gallery-overlay">
+                        <h3>Ensaio no Mangal das Garças </h3>
+                        <p>Fotos</p>
+                        <button class="btn view-details" data-id="2">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="gallery-item" data-category="Ensaio em MABE">
+                    <img src="imagens/m1.jpg" alt="Ensaio em MABE">
+                    <div class="gallery-overlay">
+                        <h3>Ensaio em MABE</h3>
+                        <p>Ensaio em MABE</p>
+                        <button class="btn view-details" data-id="3">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="gallery-item" data-category="Ensaio Forte do Castelo">
+                    <img src="imagens/estela2.jpg" alt="Young woman in a pink ball gown standing outdoors near a large tree, facing a scenic waterfront at sunset with lush greenery and a cobblestone path, evoking a serene and celebratory mood">
+                    <div class="gallery-overlay">
+                        <h3>Ensaio Forte do Castelo</h3>
+                        <p>Ensaio Forte do Castelo</p>
+                        <button class="btn view-details" data-id="4">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="gallery-item" data-category="Cobertura da festa">
+                    <img src="imagens/lana6.jpg" alt="Cobertura da festa">
+                    <div class="gallery-overlay">
+                        <h3>Cobertura da festa</h3>
+                        <p>Cobertura da festa</p>
+                        <button class="btn view-details" data-id="5">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 6 -->
+                <div class="gallery-item" data-category="Ensaio4">
+                    <img src="imagens/mari.jpg" alt="ensaio4">
+                    <div class="gallery-overlay">
+                        <h3>Ensaio</h3>
+                        <p>Fotos</p>
+                        <button class="btn view-details" data-id="6">Ver Detalhes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para detalhes -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Detalhes do Ensaio</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-gallery" id="modalGallery">
+                    <!-- Imagens serão inseridas aqui via JavaScript -->
+                </div>
+                <div class="modal-description" id="modalDescription">
+                    <!-- Descrição será inserida aqui via JavaScript -->
+                </div>
+                <ul class="modal-features" id="modalFeatures">
+                    <!-- Características serão inseridas aqui via JavaScript -->
+                </ul>
+                <div class="text-center">
+                    <a href="https://wa.me/5591989334745?text=Olá! Gostaria de mais informações sobre o ensaio de 15 anos." target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Solicitar Orçamento pelo WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pacotes -->
+    <section class="packages">
+        <div class="container">
+            <h2 class="section-title">Nossos Pacotes</h2>
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Pacote Básico</h3>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li>2 horas de ensaio fotográfico</li>
+                            <li>1 locação</li>
+                            <li>30 fotos tratadas digitalmente</li>
+                            <li>1 troca de roupa</li>
+                            <li>Entrega em até 15 dias</li>
+                        </ul>
+                        <div class="package-price"></div>
+                        <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre o Pacote Básico para 15 anos." target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Pacote Premium</h3>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li>4 horas de ensaio fotográfico</li>
+                            <li>2 locações diferentes</li>
+                            <li>60 fotos tratadas digitalmente</li>
+                            <li>3 trocas de roupa</li>
+                            <li>Maquiagem profissional inclusa</li>
+                            <li>Entrega em até 10 dias</li>
+                        </ul>
+                        <div class="package-price"></div>
+                        <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre o Pacote Premium para 15 anos." target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Pacote Completo</h3>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li>6 horas de ensaio fotográfico</li>
+                            <li>3 locações diferentes</li>
+                            <li>100 fotos tratadas digitalmente</li>
+                            <li>5 trocas de roupa</li>
+                            <li>Maquiagem e cabelo profissionais</li>
+                            <li>Álbum fotográfico físico (20x25cm)</li>
+                            <li>Entrega em até 7 dias</li>
+                        </ul>
+                        <div class="package-price"></div>
+                        <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre o Pacote Completo para 15 anos." target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Solicitar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA WhatsApp -->
+    <section class="whatsapp-cta" id="contact">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <p>Tem dúvidas ou quer personalizar seu pacote? Entre em contato conosco pelo WhatsApp e teremos prazer em ajudar!</p>
+            <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre ensaios para festa de 15 anos." target="_blank" class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">WM <span>Foto e Vídeo</span></div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="index.html">Início</a></li>
+                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="index.html#services">Serviços</a></li>
+                        <li><a href="index.html#portfolio">Portfólio</a></li>
+                        <li><a href="index.html#contact">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 WM Foto e Vídeo - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dados dos ensaios
+        const ensaiosData = {
+            1: {
+                title: "Ensaio Paris in America",
+                description: "Paris in America em Belém refere-se à Casa Paris N'América, um edifício histórico no centro comercial da cidade, inspirado nas Galeries Lafayette de Paris.",
+                features: [
+                    "2 horas de ensaio",
+                    "Locação urbana",
+                    "3 trocas de roupa",
+                    "40 fotos tratadas",
+                    "Entrega digital"
+                ],
+                images: [
+                    "imagens/paris1.jpg",
+                    "imagens/pari3.jpg",
+                    "imagens/paris4.jpg"
+                ]
+            },
+            2: {
+                title: "Ensaio no Mangal das Garças",
+                description: "Realizado em um Parque Zoobotânico Mangal das Garças.",
+                features: [
+                    "3 horas de ensaio",
+                    "Locação em parque",
+                    "2 trocas de roupa",
+                    "35 fotos tratadas",
+                    "Entrega digital"
+                ],
+                images: [
+                    "imagens/ev2.jpg",
+                    "imagens/ev3.jpg",
+                    "imagens/ev5.jpg"
+                ]
+            },
+3: {
+    title: "Ensaio em MABE",
+    description: "Ensaio profissional realizado em MABE – Museu de Arte de Belém que destacam a beleza e personalidade da aniversariante.",
+    features: [
+        "2 horas de ensaio",
+        "Estúdio profissional",
+        "4 trocas de roupa",
+        "25 fotos tratadas",
+        "Entrega digital"
+    ],
+    images: [
+        "imagens/m1.jpg",
+        "imagens/m2.jpg",
+        "imagens/mi3.jpg"
+    ]
+},
+            4: {
+                title: "Ensaio Forte do Castelo",
+                description: "Ensaio realizado no Forte do Castelo, um ponto turístico histórico em Belém, Pará. As cores do céu e o movimento das ondas criam um cenário único e romântico.",
+                features: [
+                    "2 horas de ensaio",
+                    "Locação na praia",
+                    "2 trocas de roupa",
+                    "30 fotos tratadas",
+                    "Entrega digital"
+                ],
+                images: [
+                    "imagens/estela 3.jpg",
+                    "imagens/estela 8.jpg",
+                    "imagens/estela2.jpg"
+                ]
+            },
+            5: {
+                title: "Festa",
+                description: "Festa",
+                features: [
+                    "Cobetura de 5 horas",
+                    "2 fotógrafos",
+                    "vídeo com os melhores momentos da festa",
+                    "Fotolivro",
+                    "Entrega digital"
+                ],
+                images: [
+                    "imagens/lana2.jpg",
+                    "imagens/lana6.jpg",
+                    "imagens/lana83.jpg"
+                ]
+            },
+            6: {
+                title: "Ensaio lindo",
+                description: "É nesse momento que a magia começa — antes mesmo da festa. As fotos mostram sua essência, seu estilo e toda a alegria de estar completando 15 anos.",
+                features: [
+                    "3 horas de ensaio",
+                    "Locação rural",
+                    "3 trocas de roupa",
+                    "40 fotos tratadas",
+                    "Entrega digital"
+                ],
+                images: [
+                    "imagens/mari ok.JPG",
+                    "imagens/mari.jpg",
+                    "imagens/IMG_1929.jpg"
+                ]
+            }
+        };
+
+        // Filtros da galeria
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove a classe active de todos os botões
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Adiciona a classe active ao botão clicado
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Modal functionality
+            const modal = document.getElementById('galleryModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalGallery = document.getElementById('modalGallery');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalFeatures = document.getElementById('modalFeatures');
+            const closeBtn = document.querySelector('.modal-close');
+            const viewDetailsBtns = document.querySelectorAll('.view-details');
+            
+            viewDetailsBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const ensaioId = this.getAttribute('data-id');
+                    const ensaio = ensaiosData[ensaioId];
+                    
+                    if (ensaio) {
+                        modalTitle.textContent = ensaio.title;
+                        modalDescription.textContent = ensaio.description;
+                        
+                        // Limpa e preenche a galeria do modal
+                        modalGallery.innerHTML = '';
+                        ensaio.images.forEach(imgSrc => {
+                            const imgItem = document.createElement('div');
+                            imgItem.className = 'modal-gallery-item';
+                            const img = document.createElement('img');
+                            img.src = imgSrc;
+                            img.alt = ensaio.title;
+                            imgItem.appendChild(img);
+                            modalGallery.appendChild(imgItem);
+                        });
+                        
+                        // Limpa e preenche as características
+                        modalFeatures.innerHTML = '';
+                        ensaio.features.forEach(feature => {
+                            const li = document.createElement('li');
+                            li.textContent = feature;
+                            modalFeatures.appendChild(li);
+                        });
+                        
+                        modal.style.display = 'block';
+                    }
+                });
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

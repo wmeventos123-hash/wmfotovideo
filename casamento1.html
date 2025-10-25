@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WM Foto e Vídeo - Casamentos</title>
+    <style>
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            color: #333333; /* Corrigido: melhor contraste */
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Cores corrigidas para melhor contraste */
+        :root {
+            --primary-color: #8a6d62; /* Corrigido: cor mais escura */
+            --secondary-color: #b9b0d4;
+            --accent-color: #d4af37; /* Corrigido: dourado mais escuro */
+            --dark-color: #222222; /* Corrigido: mais escuro para melhor contraste */
+            --light-color: #f5f5f5;
+            --white: #ffffff;
+            --text-color: #333333; /* Adicionado: cor de texto principal */
+            --text-light: #666666; /* Adicionado: cor de texto secundário */
+        }
+        
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Botão */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-whatsapp {
+            background-color: #25D366;
+        }
+        
+        .btn-whatsapp:hover {
+            background-color: #128C7E;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-weight: 500;
+            color: var(--white);
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Section */
+        .page-hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/random/1920x1080/?wedding') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 80px;
+            margin-bottom: 60px;
+        }
+        
+        .page-hero-content {
+            max-width: 800px;
+        }
+        
+        .page-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .page-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        /* Sobre o serviço */
+        .service-about {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .service-about-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .service-about-text {
+            flex: 1;
+            color: var(--text-color); /* Adicionado: cor de texto definida */
+        }
+        
+        .service-about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .service-about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        /* Galeria de Ensaios */
+        .gallery {
+            padding: 80px 0;
+            background-color: var(--light-color);
+        }
+        
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            background: var(--white);
+            border: 1px solid var(--primary-color);
+            color: var(--dark-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(138, 109, 98, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .gallery-overlay p {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1100;
+            overflow: auto;
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 1000px;
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: modalFade 0.5s;
+        }
+        
+        @keyframes modalFade {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-close {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .modal-close:hover {
+            color: var(--accent-color);
+        }
+        
+        .modal-body {
+            padding: 30px;
+            color: var(--text-color); /* Adicionado: cor de texto definida */
+        }
+        
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .modal-gallery-item {
+            height: 200px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+        
+        .modal-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .modal-gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .modal-description {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .modal-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .modal-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .modal-features li:before {
+            content: "✓";
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        /* Pacotes */
+        .packages {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .package-card {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .package-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .package-body {
+            padding: 30px;
+            color: var(--text-color); /* Adicionado: cor de texto definida */
+        }
+        
+        .package-features {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .package-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .package-features li:before {
+            content: "✓";
+            color: var(--primary-color);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .package-price {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin: 20px 0;
+            font-weight: 700;
+        }
+        
+        /* CTA WhatsApp */
+        .whatsapp-cta {
+            padding: 80px 0;
+            background-color: var(--light-color);
+            text-align: center;
+        }
+        
+        .whatsapp-cta h2 {
+            margin-bottom: 20px;
+            color: var(--dark-color); /* Adicionado: cor definida */
+        }
+        
+        .whatsapp-cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--text-color); /* Adicionado: cor definida */
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .footer-nav {
+            margin-bottom: 30px;
+        }
+        
+        .footer-nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .footer-nav a {
+            transition: color 0.3s ease;
+            color: var(--white);
+        }
+        
+        .footer-nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7); /* Adicionado: cor mais clara para contraste */
+        }
+        
+        /* Melhorias de legibilidade para texto */
+        p, li {
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+        
+        .service-about-text p, .modal-description, .whatsapp-cta p {
+            margin-bottom: 15px;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .service-about-container {
+                flex-direction: column;
+            }
+            
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .page-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .footer-nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-hero {
+                height: 60vh;
+            }
+            
+            .page-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-filters {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 6px 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo">WM <span>Foto e Vídeo</span></a>
+            <nav>
+                <ul>
+                    <li><a href="index1.html">Início</a></li>
+                    <li><a href="index.html#about">Sobre</a></li>
+                    <li><a href="index.html#services">Serviços</a></li>
+                    <li><a href="index.html#portfolio">Portfólio</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="container page-hero-content">
+            <h1>Fotografia de Casamentos</h1>
+            <p>Eternizamos o dia mais especial da sua vida com sensibilidade, técnica e emoção</p>
+            <a href="#contact" class="btn">Solicitar Orçamento</a>
+        </div>
+    </section>
+
+    <!-- Sobre o Serviço -->
+    <section class="service-about">
+        <div class="container service-about-container">
+            <div class="service-about-text">
+                <h2 class="section-title">Casamentos Inesquecíveis</h2>
+                <p>O casamento é um dos dias mais importantes da vida de um casal, e nossa missão é registrar cada momento com sensibilidade e profissionalismo. Trabalhamos para capturar não apenas as imagens, mas as emoções, os detalhes e a história de amor que une os noivos.</p>
+                <p>Com uma abordagem discreta e ao mesmo tempo presente, garantimos que todos os momentos especiais sejam eternizados - desde os preparativos até a festa, passando pela cerimônia e os emocionantes encontros entre familiares e amigos.</p>
+                <p>Nossa experiência nos permite antecipar momentos únicos e trabalhar com diferentes condições de luz, garantindo imagens de alta qualidade em qualquer situação.</p>
+                <a href="#gallery" class="btn" style="margin-top: 20px;">Ver Galeria</a>
+            </div>
+            <div class="service-about-image">
+                <img src="imagens/casamento anae diego.jpg" alt="Fotografia de Casamento">
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria de Ensaios -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Nossos Casamentos</h2>
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="pre-wedding">Pré-Wedding</button>
+                <button class="filter-btn" data-filter="Making Of">Making Of</button>
+                <button class="filter-btn" data-filter="Após a cerimônia">Após a cerimônia</button>
+                <button class="filter-btn" data-filter="Fotografia de casamento">Fotografia de casamento</button>
+            </div>
+            <div class="gallery-grid">
+                <!-- Item 1 -->
+                <div class="gallery-item" data-category="pre-wedding">
+                    <img src="imagens/30.JPG" alt="Pré-Wedding 1">
+                    <div class="gallery-overlay">
+                        <h3>Pré-Wedding</h3>
+                        <p>Ensaio casual no centro da cidade</p>
+                        <button class="btn view-details" data-id="1">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="gallery-item" data-category="Making Of">
+                    <img src="imagens/makingoff.jpg" alt="Making Of">
+                    <div class="gallery-overlay">
+                        <h3>Making Of</h3>
+                        <p>O making of é o primeiro capítulo do grande dia.</p>
+                        <button class="btn view-details" data-id="2">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="gallery-item" data-category="Fotografia de casamento">
+                    <img src="imagens/EVS_3008.jpg" alt="Ensaio Casamento 1">
+                    <div class="gallery-overlay">
+                        <h3>Fotografia de casamento</h3>
+                        <p>Transforma emoções e detalhes em lembranças que durarão para sempre.</p>
+                        <button class="btn view-details" data-id="3">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="gallery-item" data-category="Após a cerimônia">
+                    <img src="imagens/clauia e.png" alt="Após a cerimônia">
+                    <div class="gallery-overlay">
+                        <h3>Após a cerimônia</h3>
+                        <p>Um momento especial para registrar o casal.</p>
+                        <button class="btn view-details" data-id="4">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="gallery-item" data-category="pre-wedding">
+                    <img src="imagens/claudia e rayssa.jpg" alt="Pré-Wedding 2">
+                    <div class="gallery-overlay">
+                        <h3>Pré-Wedding</h3>
+                        <p>Pré-wedding</p>
+                        <button class="btn view-details" data-id="5">Ver Detalhes</button>
+                    </div>
+                </div>
+                
+                <!-- Item 6 -->
+                <div class="gallery-item" data-category="casamento">
+                    <img src="imagens/esterno ana e diegp.jpg" alt="Casamento">
+                    <div class="gallery-overlay">
+                        <h3>Casamento</h3>
+                        <p>Casamento</p>
+                        <button class="btn view-details" data-id="6">Ver Detalhes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para detalhes -->
+    <div id="galleryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Detalhes do Casamento</h2>
+                <span class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-gallery" id="modalGallery">
+                    <!-- Imagens serão inseridas aqui via JavaScript -->
+                </div>
+                <div class="modal-description" id="modalDescription">
+                    <!-- Descrição será inserida aqui via JavaScript -->
+                </div>
+                <ul class="modal-features" id="modalFeatures">
+                    <!-- Características serão inseridas aqui via JavaScript -->
+                </ul>
+                <div class="text-center">
+                    <a href="https://wa.me/5591989334745?text=Olá! Gostaria de mais informações sobre fotografia para casamento." target="_blank" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Solicitar Orçamento pelo WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pacotes -->
+    <section class="packages">
+        <div class="container">
+            <h2 class="section-title">Nossos Pacotes</h2>
+            <div class="packages-grid">
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Pacote Básico</h3>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li>6 horas de cobertura fotográfica</li>
+                            <li>1 fotógrafo</li>
+                            <li>Cerimônia e recepção</li>
+                            <li>200 fotos tratadas digitalmente</li>
+                            <li>Entrega em até 30 dias</li>
+                            <li>Pen drive personalizado</li>
+                        </ul>
+                        <div class="package-price"></div>
+                        <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre o Pacote Básico para casamento." target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Pacote Premium</h3>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li>10 horas de cobertura fotográfica</li>
+                            <li>2 fotógrafos</li>
+                            <li>Preparação, cerimônia e recepção</li>
+                            <li>Pré-wedding incluído (2h)</li>
+                            <li>400 fotos tratadas digitalmente</li>
+                            <li>Entrega em até 21 dias</li>
+                            <li>Álbum físico (20 páginas)</li>
+                        </ul>
+                        <div class="package-price"></div>
+                        <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre o Pacote Premium para casamento." target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Solicitar
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="package-card">
+                    <div class="package-header">
+                        <h3>Pacote Completo</h3>
+                    </div>
+                    <div class="package-body">
+                        <ul class="package-features">
+                            <li>12 horas de cobertura fotográfica</li>
+                            <li>2 fotógrafos + 1 assistente</li>
+                            <li>Cobertura completa do dia</li>
+                            <li>Pré-wedding (3h) e ensaio pós-casamento</li>
+                            <li>600 fotos tratadas digitalmente</li>
+                            <li>Filmagem em HD (8h)</li>
+                            <li>Entrega em até 15 dias</li>
+                            <li>Álbum de luxo (30 páginas) + pen drive</li>
+                        </ul>
+                        <div class="package-price"></div>
+                        <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre o Pacote Completo para casamento." target="_blank" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Solicitar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA WhatsApp -->
+    <section class="whatsapp-cta" id="contact">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <p>Tem dúvidas ou quer personalizar seu pacote? Entre em contato conosco pelo WhatsApp e teremos prazer em ajudar a planejar a cobertura perfeita para seu casamento!</p>
+            <a href="https://wa.me/5591989334745?text=Olá! Gostaria de informações sobre fotografia para casamento." target="_blank" class="btn btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Falar no WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">WM <span>Foto e Vídeo</span></div>
+                <nav class="footer-nav">
+                    <ul>
+                        <li><a href="index1.html">Início</a></li>
+                        <li><a href="index.html#about">Sobre</a></li>
+                        <li><a href="index.html#services">Serviços</a></li>
+                        <li><a href="index.html#portfolio">Portfólio</a></li>
+                        <li><a href="index.html#contact">Contato</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 WM Foto e Vídeo - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dados dos casamentos
+        const casamentosData = {
+        1: {
+            title: "Pré-Wedding",
+            description: `Nossos ensaios são feitos para contar histórias reais.
+Acreditamos que cada casal tem seu próprio jeito de amar e é isso que queremos registrar: a essência, os gestos espontâneos, os sorrisos verdadeiros e o brilho no olhar.
+Trabalhamos com luz natural, cenários abertos e uma direção leve, para que tudo aconteça de forma natural e sincera.
+O ensaio é sobre viver, sentir e se divertir juntos.`,
+            features: [
+                "2 horas de ensaio",
+                "1 locação urbana",
+                "1 trocas de roupa",
+                "15 fotos tratadas digitalmente",
+                "Entrega via link para download"
+            ],
+            images: [
+                "imagens/IMG_9931.JPG",
+                "imagens/V&G (3).JPG",
+                "imagens/IMG_9939.JPG"
+            ]
+        },
+            2: {
+                title: "Making Of",
+                description: `O momento de preparação e emoção pura, onde cada detalhe e gesto contam histórias.
+Nosso trabalho é capturar a essência de cada instante, transformando sentimentos em memórias eternas.`,
+                features: [
+                    "2 a 4 horas,",
+                    "registramos momentos espontâneos e posados, como olhares, abraços e risadas,",
+                    "Atenção aos detalhes que contam a história do casal.",
+                    "Momentos emocionantes dos familiares",
+                    "Detalhes importantes: vestido, maquiagem, acessórios, buquê e alianças."
+                ],
+                images: [
+                    "imagens/weny.jpg",
+                    "imagens/terço.jpg",
+                    "imagens/sapato.jpg"
+                ]
+            },
+            3: {
+                title: "Fotografia de casamento",
+                description: "Registramos cada momento do seu grande dia, capturando emoções, sorrisos e detalhes especiais para que essas memórias durem para sempre.",
+                features: [
+                    "Cobertura até 6h",
+                    "Fotos posadas e criativas, mas sem forçar poses, mantendo a leveza e o romance.",
+                    "Opção de vídeo.",
+                    
+                ],
+                images: [
+                    "imagens/ES1_1901.jpg",
+                    "imagens/EVS_2781.jpg",
+                    "imagens/EVS_2975.jpg"
+                ]
+            },
+            4: {
+                title: "Após a cerimônia",
+                description: "reservamos um momento especial para registrar o casal, capturando cada sorriso, abraço e olhar cheio de emoção.",
+                features: [
+                    "Duração de 30 minutos a 1 hora( ajustável conforme o cronograma)",
+                    "Registro de momentos espontâneos e naturais: olhares, abraços, sorrisos e gestos que contam a história do casal.",
+                    "após a saída da cerimônia, no local da recepção ou em outro espaço escolhido pelo casal",
+                    "Opção de vídeo",
+                    
+                ],
+                images: [
+                    "imagens/Claudia e rayssa_DSC4437.jpg",
+                    "imagens/r1.jpg",
+                    "imagens/r2.jpg"
+                ]
+            },
+            5: {
+                title: "Pré-Wedding",
+                description: "Durante o ensaio, criamos um ambiente leve e descontraído, onde cada sorriso, abraço e olhar contam um pedaço da história de vocês.",
+                features: [
+                    "2h30 minutos de sessão",
+                    "Ensaio externo",
+                    "2 trocas de roupa",
+                    "35 fotos tratadas digitalmente",
+                    "Vídeo Pré-wedding"
+                ],
+                images: [
+                    "imagens/claudia e rayssa.jpg",
+                    "imagens/r4.jpg",
+                    "imagens/r3.jpg"
+                ]
+            },
+            6: {
+                title: "Casamento",
+                description: "Registramos cada momento do seu grande dia",
+                features: [
+                    "Preparação (Making Of)",
+                    "Cerimônia",
+                    "Pós-Cerimônia",
+                    "Recepção",
+                    "Duração até 8h"
+                ],
+                images: [
+                    "imagens/esterno ana e diegp.jpg",
+                    "imagens/externo ana e diego.jpg",
+                    "imagens/ok.jpg"
+                ]
+            }
+        };
+
+        // Filtros da galeria
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove a classe active de todos os botões
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Adiciona a classe active ao botão clicado
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    
+                    galleryItems.forEach(item => {
+                        if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Modal functionality
+            const modal = document.getElementById('galleryModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalGallery = document.getElementById('modalGallery');
+            const modalDescription = document.getElementById('modalDescription');
+            const modalFeatures = document.getElementById('modalFeatures');
+            const closeBtn = document.querySelector('.modal-close');
+            const viewDetailsBtns = document.querySelectorAll('.view-details');
+            
+            viewDetailsBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const casamentoId = this.getAttribute('data-id');
+                    const casamento = casamentosData[casamentoId];
+                    
+                    if (casamento) {
+                        modalTitle.textContent = casamento.title;
+                        modalDescription.textContent = casamento.description;
+                        
+                        // Limpa e preenche a galeria do modal
+                        modalGallery.innerHTML = '';
+                        casamento.images.forEach(imgSrc => {
+                            const imgItem = document.createElement('div');
+                            imgItem.className = 'modal-gallery-item';
+                            const img = document.createElement('img');
+                            img.src = imgSrc;
+                            img.alt = casamento.title;
+                            imgItem.appendChild(img);
+                            modalGallery.appendChild(imgItem);
+                        });
+                        
+                        // Limpa e preenche as características
+                        modalFeatures.innerHTML = '';
+                        casamento.features.forEach(feature => {
+                            const li = document.createElement('li');
+                            li.textContent = feature;
+                            modalFeatures.appendChild(li);
+                        });
+                        
+                        modal.style.display = 'block';
+                    }
+                });
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+        </script>
+    </body>
+    </html>
